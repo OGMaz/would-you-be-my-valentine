@@ -1,107 +1,85 @@
-const zone = document.getElementById("zone");
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const result = document.getElementById("result");
-const hint = document.getElementById("hint");
-
-/* ---------- CONFETTI SETUP ---------- */
-const confettiCanvas = document.getElementById("confettiCanvas");
-
-function resizeConfettiCanvas() {
-  const dpr = Math.max(1, window.devicePixelRatio || 1);
-  confettiCanvas.width = Math.floor(window.innerWidth * dpr);
-  confettiCanvas.height = Math.floor(window.innerHeight * dpr);
-  confettiCanvas.style.width = "100vw";
-  confettiCanvas.style.height = "100vh";
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Courier New", monospace;
 }
 
-resizeConfettiCanvas();
-window.addEventListener("resize", resizeConfettiCanvas);
-window.addEventListener("orientationchange", () => setTimeout(resizeConfettiCanvas, 150));
-
-const confettiInstance = confetti.create(confettiCanvas, {
-  resize: false,
-  useWorker: true
-});
-
-function fullScreenConfetti() {
-  const end = Date.now() + 1600;
-
-  (function frame() {
-    confettiInstance({
-      particleCount: 12,
-      spread: 90,
-      startVelocity: 45,
-      ticks: 180,
-      origin: { x: Math.random(), y: Math.random() * 0.3 }
-    });
-    if (Date.now() < end) requestAnimationFrame(frame);
-  })();
-
-  setTimeout(() => {
-    confettiInstance({
-      particleCount: 300,
-      spread: 140,
-      startVelocity: 60,
-      ticks: 220,
-      origin: { x: 0.5, y: 0.55 }
-    });
-  }, 300);
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffe6f0, #ffd6e7);
+  overflow: hidden;
 }
 
-/* ---------- YES BUTTON GROWS ---------- */
-let yesScale = 1;
-function growYes() {
-  yesScale = Math.min(2.2, yesScale + 0.1);
-  yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
+.card {
+  background: white;
+  padding: 50px 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  width: 400px;
+  max-width: 90%;
 }
 
-/* ---------- NO BUTTON RUNS AWAY ---------- */
-function clamp(n, min, max) {
-  return Math.max(min, Math.min(max, n));
+h1 {
+  margin-bottom: 30px;
+  font-size: 26px;
 }
 
-function moveNo(px, py) {
-  const z = zone.getBoundingClientRect();
-  const b = noBtn.getBoundingClientRect();
-
-  let dx = (b.left + b.width / 2) - px;
-  let dy = (b.top + b.height / 2) - py;
-  let mag = Math.hypot(dx, dy) || 1;
-  dx /= mag;
-  dy /= mag;
-
-  let newLeft = (b.left - z.left) + dx * 150;
-  let newTop  = (b.top - z.top) + dy * 150;
-
-  newLeft = clamp(newLeft, 0, z.width - b.width);
-  newTop  = clamp(newTop, 0, z.height - b.height);
-
-  noBtn.style.left = newLeft + "px";
-  noBtn.style.top = newTop + "px";
-  noBtn.style.transform = "none";
-
-  growYes();
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
-// Mouse/Touch movement logic
-zone.addEventListener("pointermove", e => {
-  const b = noBtn.getBoundingClientRect();
-  const d = Math.hypot(
-    (b.left + b.width / 2) - e.clientX,
-    (b.top + b.height / 2) - e.clientY
-  );
-  if (d < 140) moveNo(e.clientX, e.clientY);
-});
+button {
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
 
-// Prevent clicking on No
-noBtn.addEventListener("click", e => e.preventDefault());
+#yesBtn {
+  background: #ff3b7a;
+  color: white;
+}
 
-/* ---------- YES CLICK ---------- */
-yesBtn.addEventListener("click", () => {
-  zone.style.display = "none";
-  hint.style.display = "none";
-  result.style.display = "block";
-  resizeConfettiCanvas();
-  fullScreenConfetti();
-});
+#yesBtn:hover {
+  background: #ff1f68;
+}
+
+#noBtn {
+  background: #e5e7eb;
+}
+
+.hint {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.hidden {
+  display: none;
+}
+
+#result {
+  margin-top: 20px;
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+#confettiCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
