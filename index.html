@@ -2,37 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Will you be my Valentine?</title>
 
-  <link rel="stylesheet" href="style.css">
-
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-  
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
   <canvas id="confettiCanvas"></canvas>
 
-  <main class="card">
-    <img src="https://ibb.co/4np8kWBG" alt="Us" class="art">
+  <div class="card">
 
-    <h1>Freya, will you be my Valentine?</h1>
+    <h1 id="mainTitle">nirali will you be my valentine?</h1>
 
-    <section class="button-zone" id="zone">
+    <div class="buttons">
       <button id="yesBtn">Yes</button>
       <button id="noBtn">No</button>
-    </section>
+    </div>
 
-    <section class="result" id="result">
-      <h2>YAY! 🎉</h2>
-      <img
-        class="fireworks"
-        src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif"
-        alt="Fireworks"
-      />
-    </section>
-  </main>
+    <p class="hint">Choose wisely 👀</p>
+
+    <div id="result" class="hidden"></div>
+
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
