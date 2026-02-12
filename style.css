@@ -14,17 +14,6 @@ body {
   overflow: hidden;
 }
 
-.frame {
-  background: url("frame.png") center/contain no-repeat;
-  padding: 80px;
-}
-
-.card {
-  background: #f8f0f0;
-  padding: 40px;
-}
-
-
 .card {
   width: min(720px, 92vw);
   padding: 50px 40px;
@@ -101,5 +90,6 @@ button {
   inset: 0;
   pointer-events: none;
 }
+
 
 
