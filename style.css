@@ -15,14 +15,21 @@ body {
 }
 
 .card {
-  background: white;
+  width: min(720px, 92vw);
   padding: 50px 40px;
-  border-radius: 20px;
+
+  background-color: #f8f0f0;
+
+  /* FRAME SETTINGS */
+  border: 50px solid transparent;
+  border-image-source: url("frame.png");
+  border-image-slice: 120 fill;
+  border-image-repeat: round;
+
   text-align: center;
   box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-  width: 400px;
-  max-width: 90%;
 }
+
 
 h1 {
   margin-bottom: 30px;
@@ -83,3 +90,4 @@ button {
   inset: 0;
   pointer-events: none;
 }
+
