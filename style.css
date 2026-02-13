@@ -14,6 +14,11 @@ body {
   justify-content: center;
   background: linear-gradient(135deg, #ffe6f0, #ffd6e7);
   overflow: hidden;
+  background-image: url('heart.png');
+  background-repeat: repeat;
+  animation: bgScroll 30s linear infinite;
+  background-size: 100px; /* Optional: keep the original size */
+   /* keep your existing styles */
 }
 
 .card {
@@ -107,4 +112,5 @@ button {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
 
