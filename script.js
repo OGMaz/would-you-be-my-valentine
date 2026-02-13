@@ -52,3 +52,15 @@ yesBtn.addEventListener("click", () => {
 
   result.classList.remove("hidden");
 });
+
+const music = document.getElementById("bgMusic");
+
+// Play music after first user interaction
+document.addEventListener("click", function () {
+  if (music.paused) {
+    music.volume = 0.5; // 0.0 to 1.0
+    music.play();
+  }
+});
+
+
