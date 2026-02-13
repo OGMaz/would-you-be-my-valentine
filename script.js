@@ -30,18 +30,32 @@ noBtn.addEventListener("click", () => {
   yesScale += 0.15;
   yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
 
-  // RANDOM SCATTER
+  // RANDOM SCATTER (avoid Yes button area)
   const container = document.querySelector(".buttons");
   const containerRect = container.getBoundingClientRect();
-  const buttonRect = noBtn.getBoundingClientRect();
+  const noRect = noBtn.getBoundingClientRect();
+  const yesRect = yesBtn.getBoundingClientRect();
 
-  const maxX = containerRect.width - buttonRect.width;
-  const maxY = containerRect.height - buttonRect.height;
+  const maxX = containerRect.width - noRect.width;
+  const maxY = containerRect.height - noRect.height;
 
-  const randomX = Math.random() * maxX;
-  const randomY = Math.random() * maxY;
+  let randomX, randomY;
+  let attempts = 0;
+
+  do {
+    randomX = Math.random() * maxX;
+    randomY = Math.random() * maxY;
+
+    attempts++;
+    if (attempts > 50) break; // safety exit
+
+  } while (
+    randomX < yesRect.right - containerRect.left &&
+    randomX + noRect.width > yesRect.left - containerRect.left &&
+    randomY < yesRect.bottom - containerRect.top &&
+    randomY + noRect.height > yesRect.top - containerRect.top
+  );
 
   noBtn.style.left = `${randomX}px`;
   noBtn.style.top = `${randomY}px`;
 });
-
