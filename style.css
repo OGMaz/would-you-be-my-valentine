@@ -17,7 +17,6 @@ body {
 .card {
   width: min(720px, 92vw);
   padding: 50px 40px;
-
   background-color: #f8f0f0;
 
   /* FRAME SETTINGS */
@@ -30,18 +29,18 @@ body {
   box-shadow: 0 20px 60px rgba(0,0,0,0.15);
 }
 
-
 h1 {
   margin-bottom: 30px;
   font-size: 38px;
 }
 
+/* BUTTON CONTAINER */
 .buttons {
   position: relative;
   height: 150px;
 }
 
-
+/* BUTTON BASE STYLE */
 button {
   position: absolute;
   padding: 14px 28px;
@@ -50,36 +49,43 @@ button {
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  transition: 0.25s ease;
+
+  /* Smooth movement */
+  transition: 
+    transform 0.25s ease,
+    left 0.3s ease,
+    top 0.3s ease,
+    background 0.2s ease;
 }
 
-/* Starting positions */
-#yesBtn {
-  left: 25%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-#noBtn {
-  left: 75%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-
+/* YES BUTTON */
 #yesBtn {
   background: #ff3b7a;
   color: white;
+
+  left: 25%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 2; /* Always stays clickable */
 }
 
 #yesBtn:hover {
   background: #ff1f68;
 }
 
+/* NO BUTTON */
 #noBtn {
   background: #e5e7eb;
+
+  left: 75%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 1;
 }
 
+/* TEXT BELOW */
 .hint {
   font-size: 14px;
   opacity: 0.7;
@@ -98,8 +104,3 @@ button {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
-
-
-
-
-
