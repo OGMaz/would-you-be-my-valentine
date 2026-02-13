@@ -2,15 +2,19 @@ const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const result = document.getElementById("result");
 const mainTitle = document.getElementById("mainTitle");
+const buttonsContainer = document.querySelector(".buttons");
+const hint = document.querySelector(".hint");
 
-/* ---------------- NO BUTTON DRAMA ---------------- */
+/* ---------------- NO BUTTON TEXT ---------------- */
 
 const noTexts = [
+  "Huuh?!",
   "Are you sure?",
   "Really?",
+  "Don't even think about it",
   "Think again!",
   "Last chance!",
-  "Pleaaze",
+  "Pleaaase",
   "You're breaking my heart 💔",
   "I'm gonna cry..."
 ];
@@ -20,42 +24,43 @@ let yesScale = 1;
 
 noBtn.addEventListener("click", () => {
 
-  // TEXT CHANGE
+  // Change text
   if (noIndex < noTexts.length) {
     noBtn.textContent = noTexts[noIndex];
     noIndex++;
   }
 
-  // YES GROWS
+  // Grow Yes
   yesScale += 0.15;
   yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
 
-  // RANDOM SCATTER (avoid Yes button area)
-  const container = document.querySelector(".buttons");
-  const containerRect = container.getBoundingClientRect();
-  const noRect = noBtn.getBoundingClientRect();
-  const yesRect = yesBtn.getBoundingClientRect();
+  // Move No randomly
+  const containerRect = buttonsContainer.getBoundingClientRect();
+  const buttonRect = noBtn.getBoundingClientRect();
 
-  const maxX = containerRect.width - noRect.width;
-  const maxY = containerRect.height - noRect.height;
+  const maxX = containerRect.width - buttonRect.width;
+  const maxY = containerRect.height - buttonRect.height;
 
-  let randomX, randomY;
-  let attempts = 0;
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
 
-  do {
-    randomX = Math.random() * maxX;
-    randomY = Math.random() * maxY;
-
-    attempts++;
-    if (attempts > 50) break; // safety exit
-
-  } while (
-    randomX < yesRect.right - containerRect.left &&
-    randomX + noRect.width > yesRect.left - containerRect.left &&
-    randomY < yesRect.bottom - containerRect.top &&
-    randomY + noRect.height > yesRect.top - containerRect.top
-  );
-
-  noBtn.style.left = `${randomX}px`;
-  noBtn.style.top = `${randomY}px`;
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
 });
+
+/* ---------------- YES CLICK ---------------- */
+
+yesBtn.addEventListener("click", () => {
+
+  mainTitle.textContent = "Wawawiwa! 🎉";
+
+  buttonsContainer.style.display = "none";
+  hint.style.display = "none";
+
+  result.innerHTML = `
+    <p>You have successfully confirmed that you possess a heart ❤️</p>
+  `;
+
+  result.classList.remove("hidden");
+});
+
