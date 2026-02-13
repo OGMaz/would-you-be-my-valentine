@@ -3,6 +3,8 @@
   margin: 0;
   padding: 0;
   font-family: "Courier New", monospace;
+  font-size: 18px;
+   font-weight: bold;
 }
 
 body {
@@ -32,6 +34,7 @@ body {
 h1 {
   margin-bottom: 30px;
   font-size: 38px;
+  color: #f2777d;
 }
 
 /* BUTTON CONTAINER */
@@ -104,3 +107,4 @@ button {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
