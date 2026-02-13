@@ -73,22 +73,22 @@ yesBtn.addEventListener("click", () => {
 });
 
 function launchConfetti() {
-  const duration = 3 * 1000;
+  const duration = 5 * 1000; // 5 seconds of rain
   const end = Date.now() + duration;
 
   (function frame() {
     confetti({
-      particleCount: 5,
-      angle: 60,
-      spread: 55,
-      origin: { x: 0 }
-    });
-
-    confetti({
-      particleCount: 5,
-      angle: 120,
-      spread: 55,
-      origin: { x: 1 }
+      particleCount: 8,          // small bursts each frame
+      startVelocity: 20,         // gentle fall speed
+      spread: 360,               // full horizontal spread
+      ticks: 300,                // how long pieces stay
+      gravity: 0.9,              // falling weight
+      drift: 0.5,                // slight sideways motion
+      scalar: 1.2,               // size of confetti
+      origin: {
+        x: Math.random(),        // random position across top
+        y: 0                     // start at very top
+      }
     });
 
     if (Date.now() < end) {
@@ -96,5 +96,3 @@ function launchConfetti() {
     }
   })();
 }
-
-
